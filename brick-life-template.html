@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ════ CUSTOMIZE: channel favicon ════ -->
+  <link rel="shortcut icon" href="favicon.ico" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- ════ CUSTOMIZE: browser tab title ════ -->
+  <title>[CHANNEL_NAME] — [CHANNEL_CATCHPHRASE]</title>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet"/>
+  <style>
+    /* (All CSS remains exactly the same as in the original – no changes needed) */
+    :root{
+      --lego-red:    #E3000B;
+      --lego-yellow: #F5C400;
+      --lego-blue:   #006CB7;
+      --bg:          #0c0c0c;
+      --surface:     #141414;
+      --surface2:    #1e1e1e;
+      --border:      #2a2a2a;
+      --text:        #F0EDE8;
+      --muted:       #7a7672;
+      --font-head:   'Press Start 2P', monospace;
+      --font-body:   'Exo 2', sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:#000}
+    ::-webkit-scrollbar-thumb{background:var(--lego-yellow);border-radius:3px}
+
+    .stripe{height:5px;background:linear-gradient(90deg,var(--lego-red) 33.33%,var(--lego-yellow) 33.33% 66.66%,var(--lego-blue) 66.66%)}
+
+    /* ── NAV ── */
+    #navbar{position:fixed;top:0;left:0;width:100%;z-index:200;background:rgba(12,12,12,.93);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+    .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.5rem;gap:1rem}
+    .nav-brand{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+    .nav-logo-mark{width:34px;height:34px;border-radius:4px;background:var(--lego-yellow);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:.55rem;color:#000;box-shadow:3px 3px 0 var(--lego-red);flex-shrink:0}
+    .nav-brand-text{font-family:var(--font-head);font-size:.62rem;color:var(--lego-yellow);text-shadow:2px 2px 0 var(--lego-red)}
+    .nav-links{display:flex;list-style:none;gap:2rem}
+    .nav-links a{color:var(--muted);text-decoration:none;font-weight:700;font-size:.82rem;letter-spacing:.5px;transition:color .2s;text-transform:uppercase}
+    .nav-links a:hover{color:var(--lego-yellow)}
+    .nav-btn{display:flex;align-items:center;gap:.5rem;background:var(--lego-red);color:#fff;font-weight:900;font-size:.82rem;padding:.5rem 1.2rem;border-radius:4px;text-decoration:none;border:2px solid rgba(255,255,255,.15);box-shadow:3px 3px 0 rgba(0,0,0,.5);transition:transform .2s,box-shadow .2s}
+    .nav-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 rgba(0,0,0,.5)}
+    .nav-btn svg{width:15px;height:15px;fill:currentColor}
+
+    /* ── HERO ── */
+    #hero{min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;padding-top:60px}
+    .hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 65% 40%,rgba(227,0,11,.09) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 15% 70%,rgba(0,108,183,.08) 0%,transparent 60%),var(--bg)}
+    .hero-studs{position:absolute;inset:0;z-index:0;background-image:radial-gradient(circle,rgba(245,196,0,.11) 2.5px,transparent 2.5px);background-size:36px 36px;animation:studDrift 50s linear infinite}
+    @keyframes studDrift{to{background-position:36px 36px}}
+    .float-bricks{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+    .fb{position:absolute;border-radius:4px;animation:fbFloat linear infinite}
+    @keyframes fbFloat{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:.12}90%{opacity:.12}100%{transform:translateY(-200px) rotate(720deg);opacity:0}}
+
+    .hero-content{position:relative;z-index:1;flex:1;display:flex;align-items:center;max-width:1200px;margin:0 auto;width:100%;padding:4rem 1.5rem 2rem;gap:4rem}
+    .hero-left{flex:1;min-width:0}
+    .hero-right{flex-shrink:0;width:310px;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(227,0,11,.12);border:1px solid var(--lego-red);color:var(--lego-red);font-size:.72rem;font-weight:900;padding:.35rem .9rem;border-radius:3px;margin-bottom:1.5rem;letter-spacing:.5px;text-transform:uppercase}
+    .hero-title{font-family:var(--font-head);font-size:clamp(1.3rem,4vw,3rem);line-height:1.45;margin-bottom:1.2rem;color:#fff}
+    .hero-title .yt{color:var(--lego-red)}
+    .hero-title .lego{color:var(--lego-yellow)}
+    .hero-subtitle{font-size:clamp(.95rem,2vw,1.15rem);color:#999;line-height:1.85;max-width:520px;margin-bottom:2.5rem}
+    .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+    .cta-primary{background:var(--lego-yellow);color:#000;font-family:var(--font-body);font-weight:900;font-size:.95rem;padding:.85rem 2rem;border-radius:4px;text-decoration:none;border:3px solid #000;box-shadow:4px 4px 0 #000;transition:transform .2s,box-shadow .2s;white-space:nowrap}
+    .cta-primary:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #000}
+    .cta-secondary{background:transparent;color:var(--text);font-family:var(--font-body);font-weight:700;font-size:.95rem;padding:.85rem 2rem;border-radius:4px;text-decoration:none;border:2px solid var(--border);transition:border-color .2s,color .2s;white-space:nowrap}
+    .cta-secondary:hover{border-color:var(--lego-yellow);color:var(--lego-yellow)}
+
+    /* Channel Card */
+    .channel-card{width:100%;background:var(--surface);border:3px solid var(--lego-yellow);border-radius:6px;overflow:hidden;box-shadow:6px 6px 0 var(--lego-red),12px 12px 0 rgba(0,0,0,.3)}
+    .channel-card-header{background:linear-gradient(160deg,#2a0000,var(--lego-red));padding:1.75rem 1rem 1.25rem;text-align:center;position:relative;overflow:hidden}
+    .channel-card-header::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,215,0,.15) 2px,transparent 2px);background-size:22px 22px}
+    .avatar-wrap{width:92px;height:92px;border-radius:50%;background:linear-gradient(135deg,var(--lego-yellow),#e06000);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;border:4px solid #000;box-shadow:0 0 0 3px var(--lego-yellow);position:relative;z-index:1;overflow:hidden;font-size:2.4rem}
+    .avatar-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+    .channel-card-name{font-family:var(--font-head);font-size:.58rem;color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.5);margin-bottom:.4rem;position:relative;z-index:1;line-height:1.7}
+    .channel-handle{font-size:.8rem;color:rgba(255,255,255,.55);position:relative;z-index:1}
+    .channel-card-body{padding:1.1rem 1.2rem 1.3rem}
+    .card-stats{display:flex;justify-content:space-around;padding:.7rem 0;border-bottom:1px solid var(--border);margin-bottom:.85rem}
+    .cs-item{text-align:center}
+    .cs-n{font-family:var(--font-head);font-size:.5rem;color:var(--lego-yellow);display:block;margin-bottom:.2rem}
+    .cs-l{font-size:.7rem;color:var(--muted);font-weight:700}
+    .channel-desc{font-size:.8rem;line-height:1.75;color:#999;text-align:center}
+    .sub-btn{display:block;margin-top:1rem;background:var(--lego-red);color:#fff;font-weight:900;font-size:.85rem;text-align:center;padding:.6rem 1rem;border-radius:4px;text-decoration:none;border:2px solid rgba(255,255,255,.15);transition:filter .2s}
+    .sub-btn:hover{filter:brightness(1.15)}
+
+    /* Brick decoration row */
+    .brick-row{position:relative;z-index:1;display:flex;height:24px;overflow:hidden}
+    .brick-seg{flex:1;height:100%}
+
+    /* ── STATS ── */
+    .stats-strip{position:relative;z-index:2;background:var(--lego-yellow);border-top:4px solid #000;border-bottom:4px solid #000;padding:1.3rem 1rem;display:flex;justify-content:center;gap:clamp(.8rem,4vw,4rem);flex-wrap:wrap}
+    .stat-item{text-align:center}
+    .stat-n{font-family:var(--font-head);font-size:clamp(.85rem,2.2vw,1.4rem);color:#000;display:block}
+    .stat-l{font-size:.73rem;font-weight:700;color:#444;margin-top:.15rem;text-transform:uppercase;letter-spacing:.5px}
+
+    /* ── SECTIONS ── */
+    .section{position:relative;padding:5rem 1.5rem;width:100%;box-sizing:border-box}
+    .container{max-width:1200px;margin:0 auto;width:100%;box-sizing:border-box}
+    .section-eyebrow{display:block;font-family:var(--font-head);font-size:.48rem;color:var(--lego-yellow);letter-spacing:3px;text-transform:uppercase;margin-bottom:.7rem}
+    .section-heading{font-family:var(--font-head);font-size:clamp(.85rem,2.2vw,1.4rem);line-height:1.6;margin-bottom:1rem}
+    .section-lead{font-size:1.02rem;line-height:1.85;color:#999;max-width:680px}
+
+    /* ── HISTORY ── */
+    #historia{background:var(--surface);background-image:radial-gradient(circle,rgba(0,108,183,.07) 2px,transparent 2px);background-size:32px 32px}
+    .historia-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+    .timeline{margin-top:2.5rem;position:relative}
+    .tl-line{position:absolute;left:6px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--lego-yellow),var(--lego-blue))}
+    .tl-item{display:flex;gap:1.5rem;padding-bottom:2rem;padding-left:1.8rem;position:relative}
+    .tl-dot{position:absolute;left:0;top:5px;width:14px;height:14px;background:var(--lego-yellow);border:2px solid #000;border-radius:50%;box-shadow:0 0 8px var(--lego-yellow)}
+    .tl-year{font-family:var(--font-head);font-size:.52rem;color:var(--lego-yellow);margin-bottom:.4rem;white-space:nowrap}
+    .tl-text{font-size:.9rem;line-height:1.8;color:#bbb}
+
+    .portrait{background:var(--surface2);border:3px solid var(--lego-yellow);border-radius:6px;overflow:hidden;box-shadow:6px 6px 0 var(--lego-red);position:sticky;top:85px}
+    .portrait-hero{background:linear-gradient(180deg,#1a0000,var(--lego-red));padding:2rem 1.5rem 1.5rem;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+    .portrait-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,215,0,.15) 2px,transparent 2px);background-size:22px 22px}
+    .portrait-avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--lego-yellow),#e06000);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;border:4px solid #000;box-shadow:0 0 0 3px var(--lego-yellow),4px 4px 0 #000;position:relative;z-index:1;overflow:hidden;font-size:2.5rem}
+    .portrait-avatar img{width:100%;height:100%;object-fit:cover}
+    .portrait-name{font-family:var(--font-head);font-size:.7rem;color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.5);margin-bottom:.3rem;position:relative;z-index:1;line-height:1.6}
+    .portrait-handle{font-size:.8rem;color:rgba(255,255,255,.55);position:relative;z-index:1}
+    .portrait-body{padding:1.4rem}
+    .portrait-bio{font-size:.88rem;line-height:1.8;color:#aaa;margin-bottom:1.2rem}
+    .tag-grid{display:flex;flex-wrap:wrap;gap:.45rem}
+    .ptag{font-size:.75rem;font-weight:900;padding:.28rem .7rem;border-radius:3px;border:2px solid #000}
+    .ptag-red{background:var(--lego-red);color:#fff}
+    .ptag-blue{background:var(--lego-blue);color:#fff}
+    .ptag-yellow{background:var(--lego-yellow);color:#000}
+    .ptag-dark{background:#2a2a2a;color:var(--lego-yellow);border-color:var(--lego-yellow)}
+    .collab-section{margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--border)}
+    .collab-label{font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.6rem;display:block}
+    .collab-chips{display:flex;flex-wrap:wrap;gap:.4rem}
+    .collab-chip{background:var(--surface);border:1px solid var(--border);color:#bbb;font-size:.68rem;font-weight:700;padding:.2rem .55rem;border-radius:3px}
+
+    /* ── GAMES ── */
+    #juegos{background:var(--surface);background-image:radial-gradient(circle,rgba(245,196,0,.06) 2px,transparent 2px);background-size:32px 32px}
+    .games-header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem}
+    .game-filters{display:flex;gap:.5rem;flex-wrap:wrap}
+    .filter-btn{background:var(--surface2);border:2px solid var(--border);color:var(--muted);font-size:.78rem;font-weight:700;padding:.32rem .85rem;border-radius:20px;cursor:pointer;transition:all .2s;font-family:var(--font-body)}
+    .filter-btn.active,.filter-btn:hover{border-color:var(--lego-yellow);color:var(--lego-yellow);background:rgba(245,196,0,.07)}
+    .games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:.7rem}
+    .game-chip{background:var(--surface2);border:2px solid var(--border);border-radius:4px;padding:.85rem .7rem;text-align:center;cursor:default;transition:all .25s ease;box-shadow:2px 2px 0 #000}
+    .game-chip:hover{border-color:var(--lego-yellow);color:var(--lego-yellow);transform:translate(-2px,-2px);box-shadow:4px 4px 0 #000}
+    .game-chip.lego-type:hover{border-color:var(--lego-red);color:var(--lego-red)}
+    .gi{font-size:1.25rem;display:block;margin-bottom:.32rem}
+    .gn{font-size:.76rem;font-weight:700;color:inherit;line-height:1.3}
+
+    /* ── RECOGNITION ── */
+    #reconocimiento{background:var(--bg);background-image:radial-gradient(circle,rgba(0,108,183,.06) 2px,transparent 2px);background-size:32px 32px}
+    .rec-header{text-align:center;margin-bottom:3rem}
+    .rec-header .section-lead{margin:0 auto}
+    .awards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+    @media(max-width:900px){.awards-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:540px){.awards-grid{grid-template-columns:1fr}}
+    .award-card{background:var(--surface);border:2px solid var(--border);border-left:6px solid var(--lego-yellow);border-radius:4px;padding:1.7rem;position:relative;z-index:0;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1);box-shadow:3px 3px 0 rgba(245,196,0,0)}
+    .award-card:nth-child(2){border-left-color:var(--lego-red);   box-shadow:3px 3px 0 rgba(227,0,11,0)}
+    .award-card:nth-child(3){border-left-color:var(--lego-blue);  box-shadow:3px 3px 0 rgba(0,108,183,0)}
+    .award-card:nth-child(4){border-left-color:#00c851;           box-shadow:3px 3px 0 rgba(0,200,81,0)}
+    .awards-grid .award-card:hover{transform:scale(1.04) translateY(-5px);z-index:2;box-shadow:0 12px 32px rgba(245,196,0,.12),5px 5px 0 rgba(245,196,0,.9)}
+    .awards-grid .award-card:nth-child(2):hover{box-shadow:0 12px 32px rgba(227,0,11,.12),5px 5px 0 rgba(227,0,11,.9)}
+    .awards-grid .award-card:nth-child(3):hover{box-shadow:0 12px 32px rgba(0,108,183,.12),5px 5px 0 rgba(0,108,183,.9)}
+    .awards-grid .award-card:nth-child(4):hover{box-shadow:0 12px 32px rgba(0,200,81,.12), 5px 5px 0 rgba(0,200,81,.9)}
+    .award-icon{font-size:2rem;margin-bottom:.8rem}
+    .award-title{font-family:var(--font-head);font-size:.55rem;line-height:1.75;color:var(--lego-yellow);margin-bottom:.6rem}
+    .award-card:nth-child(2) .award-title{color:#ff7070}
+    .award-card:nth-child(3) .award-title{color:#5ab8ff}
+    .award-card:nth-child(4) .award-title{color:#00c851}
+    .award-text{font-size:.88rem;line-height:1.8;color:var(--muted)}
+
+    /* ── SOCIALS ── */
+    #redes{background:var(--surface);border-top:1px solid var(--border)}
+    .redes-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.8rem;max-width:680px;margin:0 auto}
+    .social-grid{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center}
+    .social-btn{display:flex;align-items:center;gap:.55rem;background:var(--surface2);border:2px solid var(--border);color:var(--text);font-weight:700;font-size:.88rem;padding:.62rem 1.3rem;border-radius:4px;text-decoration:none;transition:all .25s;box-shadow:3px 3px 0 #000}
+    .social-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #000}
+    .social-btn.yt{border-color:var(--lego-red);color:var(--lego-red)}.social-btn.yt:hover{background:var(--lego-red);color:#fff}
+    .social-btn.tw{border-color:var(--lego-blue);color:var(--lego-blue)}.social-btn.tw:hover{background:var(--lego-blue);color:#fff}
+    .social-btn.tt{border-color:#888;color:#888}.social-btn.tt:hover{background:#333;color:#fff;border-color:#fff}
+    .social-btn.ig{border-color:#e1306c;color:#e1306c}.social-btn.ig:hover{background:#e1306c;color:#fff}
+    .social-btn svg{width:17px;height:17px;fill:currentColor}
+
+    /* ── FOOTER ── */
+    footer{background:#000;padding:2rem 1.5rem;text-align:center}
+    .footer-logo{font-family:var(--font-head);font-size:.72rem;color:var(--lego-yellow);text-shadow:2px 2px 0 var(--lego-red);margin-bottom:.7rem}
+    .footer-note{font-size:.8rem;color:var(--muted);line-height:1.9}
+    .footer-note a{color:var(--lego-yellow);text-decoration:none}
+
+    /* ── REVEAL ── */
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal-left{opacity:0;transform:translateX(-26px);transition:opacity .6s ease,transform .6s ease}
+    .reveal-left.visible{opacity:1;transform:none}
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.4rem;background:none;border:none}
+    .nav-hamburger span{display:block;width:24px;height:2px;background:var(--lego-yellow);border-radius:2px;transition:all .3s}
+    .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .nav-hamburger.open span:nth-child(2){opacity:0}
+    .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .nav-mobile{display:none;flex-direction:column;background:rgba(10,10,10,.98);border-top:3px solid var(--lego-yellow);padding:1rem 1.5rem 1.5rem}
+    .nav-mobile.open{display:flex}
+    .nav-mobile a{color:var(--muted);text-decoration:none;font-weight:700;font-size:.9rem;padding:.65rem 0;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.5px;transition:color .2s}
+    .nav-mobile a:last-child{border-bottom:none}
+    .nav-mobile a:hover{color:var(--lego-yellow)}
+
+    /* ── RESPONSIVE ── */
+    .stats-feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem;min-width:0}
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .nav-hamburger{display:flex}
+      .nav-btn{font-size:.72rem;padding:.45rem .9rem}
+      .hero-content{flex-direction:column-reverse;gap:2rem;padding-top:2.5rem}
+      .hero-right{width:100%;max-width:380px;align-self:center}
+      .historia-grid{grid-template-columns:1fr}
+      .portrait{position:static}
+      .ruleta-wrap{flex-direction:column}
+      .awards-grid{grid-template-columns:repeat(2,1fr)}
+      .stats-feature-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:700px){
+      .section{padding:3rem 1rem}
+      .chart-bars{gap:.3rem;padding-bottom:.5rem}
+      .chart-col{min-width:40px}
+      .chart-val{font-size:.32rem}
+      .chart-year{font-size:.58rem}
+      .tl-card.active{grid-template-columns:1fr}
+      .tl-card-year{font-size:2rem}
+    }
+    @media(max-width:580px){
+      .hero-ctas{flex-direction:column}
+      .cta-primary,.cta-secondary{text-align:center}
+      .video-grid{grid-template-columns:1fr}
+      .interactivo-tabs{gap:.35rem}
+      .itab{font-size:.42rem;padding:.45rem .8rem}
+      .trivia-nav{flex-wrap:wrap}
+      .ruleta-canvas-wrap{width:min(280px,85vw);height:min(280px,85vw)}
+    }
+    @media(max-width:540px){
+      .awards-grid{grid-template-columns:1fr}
+      .trivia-options{grid-template-columns:1fr}
+      .stats-feature-grid{grid-template-columns:1fr}
+      .tl-nav{gap:.3rem}
+      .tl-nav-btn{font-size:.38rem;padding:.35rem .6rem}
+    }
+
+    /* ══════════════════════════════
+       STATS SECTION
+    ══════════════════════════════ */
+    #estadisticas{background:var(--surface);background-image:radial-gradient(circle,rgba(245,196,0,.06) 2px,transparent 2px);background-size:32px 32px}
+
+    .days-card{background:var(--surface2);border:3px solid var(--lego-yellow);border-radius:6px;padding:2rem;text-align:center;box-shadow:5px 5px 0 var(--lego-red);display:flex;flex-direction:column;align-items:center;gap:.8rem;min-width:0;overflow:hidden}
+    .days-number{font-family:var(--font-head);font-size:clamp(1.6rem,5vw,3rem);color:var(--lego-yellow);text-shadow:3px 3px 0 var(--lego-red);line-height:1}
+    .days-label{font-size:.82rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+    .days-sub{font-size:.78rem;color:#777;margin-top:.2rem}
+    .days-since{font-family:var(--font-head);font-size:.5rem;color:var(--lego-blue);margin-top:.5rem;line-height:1.7}
+
+    .lego-progress-card{background:var(--surface2);border:3px solid var(--lego-red);border-radius:6px;padding:2rem;box-shadow:5px 5px 0 rgba(0,0,0,.4);min-width:0;overflow:hidden}
+    .lego-progress-card h3{font-family:var(--font-head);font-size:.62rem;color:var(--lego-yellow);margin-bottom:1.5rem;line-height:1.7;word-break:break-word}
+    .progress-item{margin-bottom:1.2rem}
+    .progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem;gap:.5rem;flex-wrap:wrap}
+    .progress-name{font-size:.82rem;font-weight:700;color:#ddd;min-width:0;flex:1}
+    .progress-nums{font-family:var(--font-head);font-size:.48rem;color:var(--lego-yellow);white-space:nowrap;flex-shrink:0}
+    .progress-track{height:12px;background:#2a2a2a;border-radius:6px;overflow:hidden;border:1px solid #333}
+    .progress-fill{height:100%;border-radius:6px;width:0;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+    .fill-yellow{background:linear-gradient(90deg,#d4a000,var(--lego-yellow))}
+    .fill-red{background:linear-gradient(90deg,#900,var(--lego-red))}
+    .fill-blue{background:linear-gradient(90deg,#004a80,var(--lego-blue))}
+
+    .chart-card{background:var(--surface2);border:2px solid var(--border);border-radius:6px;padding:2rem;grid-column:1/-1;overflow:hidden;min-width:0}
+    .chart-card h3{font-family:var(--font-head);font-size:.62rem;color:var(--lego-yellow);margin-bottom:1.8rem;line-height:1.7;word-break:break-word}
+    .chart-bars{display:flex;align-items:flex-end;gap:.5rem;min-height:220px;padding-bottom:0;overflow-x:auto;overflow-y:visible;width:100%}
+    .chart-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:.4rem}
+    .chart-bar-wrap{width:100%;display:flex;align-items:flex-end;justify-content:center;flex:1}
+    .chart-bar{width:100%;border-radius:4px 4px 0 0;min-height:4px;width:0;transition:height 0s;height:0;transition:height 1.2s cubic-bezier(.22,1,.36,1)}
+    .bar-yellow{background:linear-gradient(to top,#c49000,var(--lego-yellow))}
+    .bar-red{background:linear-gradient(to top,#900,var(--lego-red))}
+    .bar-blue{background:linear-gradient(to top,#004080,var(--lego-blue))}
+    .chart-val{font-family:var(--font-head);font-size:.38rem;color:var(--lego-yellow);white-space:nowrap}
+    .chart-year{font-size:.68rem;font-weight:700;color:var(--muted);white-space:nowrap}
+    .chart-legend{display:flex;gap:1.5rem;margin-top:1rem;flex-wrap:wrap}
+    .legend-item{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:#aaa;font-weight:700}
+    .legend-dot{width:12px;height:12px;border-radius:3px}
+
+    /* ══════════════════════════════
+       INTERACTIVE (Trivia + Roulette + Timeline)
+    ══════════════════════════════ */
+    #interactivo{background:var(--bg);background-image:radial-gradient(circle,rgba(0,108,183,.06) 2px,transparent 2px);background-size:32px 32px}
+    .interactivo-tabs{display:flex;gap:.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+    .itab{background:var(--surface2);border:2px solid var(--border);color:var(--muted);font-family:var(--font-head);font-size:.48rem;padding:.55rem 1.1rem;border-radius:4px;cursor:pointer;transition:all .2s;letter-spacing:.5px}
+    .itab.active{background:var(--lego-yellow);border-color:#000;color:#000;box-shadow:3px 3px 0 #000}
+    .itab:not(.active):hover{border-color:var(--lego-yellow);color:var(--lego-yellow)}
+    .ipanel{display:none}.ipanel.active{display:block}
+
+    .trivia-wrap{max-width:700px;margin:0 auto}
+    .trivia-progress-bar{height:6px;background:#222;border-radius:3px;margin-bottom:1.5rem;overflow:hidden}
+    .trivia-progress-fill{height:100%;background:var(--lego-yellow);border-radius:3px;transition:width .4s ease}
+    .trivia-q-num{font-family:var(--font-head);font-size:.48rem;color:var(--muted);margin-bottom:.6rem}
+    .trivia-question{font-family:var(--font-head);font-size:clamp(.7rem,2vw,1rem);line-height:1.7;margin-bottom:1.5rem;color:#fff;min-height:3.5rem}
+    .trivia-options{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem}
+    @media(max-width:520px){.trivia-options{grid-template-columns:1fr}}
+    .trivia-opt{background:var(--surface2);border:2px solid var(--border);border-radius:4px;padding:.85rem 1rem;font-size:.9rem;font-weight:700;cursor:pointer;text-align:left;color:var(--text);transition:border-color .2s,background .2s,transform .15s;box-shadow:2px 2px 0 #000}
+    .trivia-opt:hover:not(:disabled){border-color:var(--lego-yellow);color:var(--lego-yellow);transform:translate(-1px,-1px);box-shadow:3px 3px 0 #000}
+    .trivia-opt.correct{background:rgba(0,200,81,.15);border-color:#00c851;color:#00c851}
+    .trivia-opt.wrong{background:rgba(227,0,11,.12);border-color:var(--lego-red);color:var(--lego-red)}
+    .trivia-opt:disabled{cursor:default;transform:none}
+    .trivia-feedback{font-size:.88rem;color:#aaa;min-height:1.4rem;margin-bottom:1rem;font-weight:700}
+    .trivia-feedback.ok{color:#00c851}.trivia-feedback.fail{color:var(--lego-red)}
+    .trivia-next{background:var(--lego-yellow);color:#000;border:3px solid #000;box-shadow:3px 3px 0 #000;font-family:var(--font-head);font-size:.52rem;padding:.65rem 1.5rem;border-radius:4px;cursor:pointer;transition:transform .15s,box-shadow .15s}
+    .trivia-next:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #000}
+    .trivia-nav{display:flex;gap:.75rem;align-items:center;margin-top:.25rem;min-height:2.8rem}
+    .trivia-back{background:var(--surface2);color:var(--muted);border:2px solid var(--border);font-family:var(--font-head);font-size:.52rem;padding:.65rem 1.2rem;border-radius:4px;cursor:pointer;transition:border-color .2s,color .2s,transform .15s}
+    .trivia-back:hover{border-color:var(--lego-yellow);color:var(--lego-yellow);transform:translate(-2px,-2px)}
+    .trivia-result{text-align:center;padding:2rem 0;display:none}
+    .trivia-result-score{font-family:var(--font-head);font-size:clamp(1.5rem,4vw,2.8rem);color:var(--lego-yellow);text-shadow:3px 3px 0 var(--lego-red);margin-bottom:.5rem}
+    .trivia-result-label{font-size:1rem;color:#aaa;margin-bottom:1.5rem}
+    .trivia-result-msg{font-family:var(--font-head);font-size:.6rem;color:#fff;line-height:1.8;margin-bottom:1.5rem}
+    .trivia-restart{background:var(--lego-red);color:#fff;border:3px solid #000;box-shadow:3px 3px 0 #000;font-family:var(--font-head);font-size:.52rem;padding:.65rem 1.5rem;border-radius:4px;cursor:pointer;transition:transform .15s,box-shadow .15s}
+    .trivia-restart:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #000}
+    .trivia-best{font-size:.78rem;color:var(--muted);margin-top:.75rem}
+
+    .ruleta-wrap{display:flex;flex-direction:column;align-items:center;gap:2rem}
+    .ruleta-canvas-wrap{position:relative;width:min(340px,90vw);height:min(340px,90vw);flex-shrink:0}
+    .ruleta-canvas-wrap canvas{display:block;border-radius:50%;box-shadow:0 0 0 5px var(--lego-yellow),0 0 0 8px #000,0 8px 30px rgba(0,0,0,.5)}
+    .ruleta-pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:28px solid var(--lego-red);filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));z-index:2}
+    .ruleta-controls{display:flex;flex-direction:column;align-items:center;gap:1rem;width:100%}
+    .ruleta-spin-btn{background:var(--lego-red);color:#fff;border:3px solid #000;box-shadow:4px 4px 0 #000;font-family:var(--font-head);font-size:.6rem;padding:.8rem 2rem;border-radius:4px;cursor:pointer;transition:transform .15s,box-shadow .15s;letter-spacing:.5px}
+    .ruleta-spin-btn:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:6px 6px 0 #000}
+    .ruleta-spin-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .ruleta-result-box{background:var(--surface2);border:3px solid var(--lego-yellow);border-radius:6px;padding:1.25rem 1.75rem;text-align:center;box-shadow:4px 4px 0 #000;min-width:240px}
+    .ruleta-result-title{font-family:var(--font-head);font-size:.5rem;color:var(--muted);margin-bottom:.4rem;letter-spacing:.5px}
+    .ruleta-result-game{font-family:var(--font-head);font-size:clamp(.7rem,2.5vw,1rem);color:var(--lego-yellow);line-height:1.6;text-shadow:2px 2px 0 var(--lego-red)}
+    .ruleta-history{width:100%;max-width:400px}
+    .ruleta-history h4{font-family:var(--font-head);font-size:.48rem;color:var(--muted);margin-bottom:.6rem;letter-spacing:.5px}
+    .ruleta-history-list{display:flex;flex-direction:column;gap:.35rem;max-height:160px;overflow-y:auto}
+    .ruleta-history-list::-webkit-scrollbar{width:4px}.ruleta-history-list::-webkit-scrollbar-thumb{background:var(--lego-yellow)}
+    .ruleta-hist-item{background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:.4rem .75rem;font-size:.8rem;font-weight:700;color:#bbb;display:flex;justify-content:space-between}
+    .ruleta-hist-num{color:var(--lego-yellow);font-family:var(--font-head);font-size:.42rem}
+
+    .tl-interactive{position:relative;padding:1rem 0 2rem}
+    .tl-nav{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+    .tl-nav-btn{background:var(--surface2);border:2px solid var(--border);color:var(--muted);font-family:var(--font-head);font-size:.42rem;padding:.4rem .8rem;border-radius:3px;cursor:pointer;transition:all .2s;letter-spacing:.5px}
+    .tl-nav-btn.active{background:var(--lego-yellow);border-color:#000;color:#000;box-shadow:2px 2px 0 #000}
+    .tl-nav-btn:not(.active):hover{border-color:var(--lego-yellow);color:var(--lego-yellow)}
+    .tl-cards-track{position:relative}
+    .tl-card{display:none;animation:tlFadeIn .4s ease}
+    .tl-card.active{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start}
+    @keyframes tlFadeIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+    .tl-card-year{font-family:var(--font-head);font-size:clamp(2rem,6vw,3.5rem);color:var(--lego-yellow);text-shadow:4px 4px 0 var(--lego-red);line-height:1;min-width:120px}
+    .tl-card-content{background:var(--surface2);border:3px solid var(--lego-yellow);border-radius:6px;padding:1.75rem;box-shadow:5px 5px 0 rgba(0,0,0,.4)}
+    .tl-card-title{font-family:var(--font-head);font-size:.7rem;color:#fff;margin-bottom:.8rem;line-height:1.6}
+    .tl-card-body{font-size:.92rem;line-height:1.85;color:#bbb;margin-bottom:1rem}
+    .tl-card-stat{display:inline-block;background:rgba(245,196,0,.1);border:1px solid var(--lego-yellow);color:var(--lego-yellow);font-size:.78rem;font-weight:900;padding:.3rem .8rem;border-radius:3px;margin:.2rem}
+    @media(max-width:580px){.tl-card.active{grid-template-columns:1fr}.tl-card-year{font-size:2rem}}
+  </style>
+</head>
+<body>
+
+<div class="stripe"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#hero">
+      <div class="nav-logo-mark">XX</div>
+      <span class="nav-brand-text">[CHANNEL_NAME]</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#historia">History</a></li>
+      <li><a href="#estadisticas">Stats</a></li>
+      <li><a href="#interactivo">Fan Zone</a></li>
+      <li><a href="#juegos">Games</a></li>
+      <li><a href="#reconocimiento">Success</a></li>
+    </ul>
+    <a class="nav-btn" href="https://www.youtube.com/@[HANDLE_CANAL]" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-2.75 12.08 12.08 0 00-7.64 0A4.83 4.83 0 014.41 6.69a50.56 50.56 0 000 10.62 4.83 4.83 0 003.77 2.75 12.08 12.08 0 007.64 0 4.83 4.83 0 003.77-2.75 50.56 50.56 0 000-10.62zM9.75 15V9l6 3z"/></svg>
+      Subscribe
+    </a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#historia"       onclick="closeMobileNav()">History</a>
+    <a href="#estadisticas"   onclick="closeMobileNav()">Stats</a>
+    <a href="#interactivo"    onclick="closeMobileNav()">Fan Zone</a>
+    <a href="#juegos"         onclick="closeMobileNav()">Games</a>
+    <a href="#reconocimiento" onclick="closeMobileNav()">Success</a>
+  </div>
+  <div class="stripe"></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-studs"></div>
+  <div class="float-bricks" id="fbContainer"></div>
+
+  <div class="hero-content">
+    <div class="hero-left reveal-left">
+      <div class="hero-eyebrow">🎮 [SHORT_SLOGAN]</div>
+      <h1 class="hero-title">
+        [LINE 1 OF<br/>
+        TITLE<br/>
+        <span class="yt">HERO]</span><br/>
+        goes here <span class="lego">your text</span>
+      </h1>
+      <p class="hero-subtitle">
+        [CHANNEL DESCRIPTION in 2-3 sentences. Who the creator is, what kind of
+        content they make, and why it's worth following.]
+      </p>
+      <div class="hero-ctas">
+        <a class="cta-primary" href="#historia">📖 Learn their story</a>
+        <a class="cta-secondary" href="https://www.youtube.com/@[HANDLE_CANAL]" target="_blank" rel="noopener">▶ Go to channel →</a>
+      </div>
+    </div>
+
+    <div class="hero-right reveal">
+      <div class="channel-card">
+        <div class="channel-card-header">
+          <div class="avatar-wrap">
+            <img src="avatar.png" alt="[CHANNEL_NAME]" onerror="this.parentElement.innerHTML='🎮'"/>
+          </div>
+          <div class="channel-card-name">[CHANNEL_NAME]</div>
+          <div class="channel-handle">@[HANDLE_CANAL]</div>
+        </div>
+        <div class="channel-card-body">
+          <div class="card-stats">
+            <div class="cs-item"><span class="cs-n">[SUBS]</span><span class="cs-l">Subscribers</span></div>
+            <div class="cs-item"><span class="cs-n">[VIEWS]</span><span class="cs-l">Views</span></div>
+            <div class="cs-item"><span class="cs-n">[VIDEOS]</span><span class="cs-l">Videos</span></div>
+          </div>
+          <p class="channel-desc">[SHORT CHANNEL DESCRIPTION. One or two sentences.]</p>
+          <a class="sub-btn" href="https://www.youtube.com/@[HANDLE_CANAL]?sub_confirmation=1" target="_blank" rel="noopener">▶ Subscribe for free</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brick-row">
+    <div class="brick-seg" style="background:#E3000B"></div>
+    <div class="brick-seg" style="background:#c00009"></div>
+    <div class="brick-seg" style="background:#E3000B"></div>
+    <div class="brick-seg" style="background:#F5C400"></div>
+    <div class="brick-seg" style="background:#d4aa00"></div>
+    <div class="brick-seg" style="background:#F5C400"></div>
+    <div class="brick-seg" style="background:#006CB7"></div>
+    <div class="brick-seg" style="background:#005fa3"></div>
+    <div class="brick-seg" style="background:#006CB7"></div>
+    <div class="brick-seg" style="background:#E3000B"></div>
+    <div class="brick-seg" style="background:#F5C400"></div>
+    <div class="brick-seg" style="background:#006CB7"></div>
+  </div>
+</section>
+
+<!-- STATS STRIP — customize: 6 key channel stats -->
+<div class="stats-strip">
+  <div class="stat-item"><span class="stat-n">[SUBS]</span><span class="stat-l">Subscribers</span></div>
+  <div class="stat-item"><span class="stat-n">[VIEWS]</span><span class="stat-l">Views</span></div>
+  <div class="stat-item"><span class="stat-n">[VIDEOS]</span><span class="stat-l">Videos</span></div>
+  <div class="stat-item"><span class="stat-n">[START_YEAR]</span><span class="stat-l">Since</span></div>
+  <div class="stat-item"><span class="stat-n">[UPLOAD_FREQ]</span><span class="stat-l">Frequency</span></div>
+  <div class="stat-item"><span class="stat-n">[ACTIVE_YEARS]+</span><span class="stat-l">Active years</span></div>
+</div>
+
+<!-- HISTORY -->
+<section class="section" id="historia">
+  <div class="container">
+    <div class="historia-grid">
+      <div class="reveal-left">
+        <span class="section-eyebrow">// Their story</span>
+        <h2 class="section-heading">[HISTORY HEADLINE,<br/>e.g.: From [CITY] to YouTube's Top]</h2>
+        <p class="section-lead">[CREATOR_NAME] was born on [BIRTH_DATE] in [CITY], [REGION]. What started as [ORIGIN_DESCRIPTION] turned into one of the most [ADJECTIVE] gaming channels in the Spanish-speaking world.</p>
+
+        <div class="timeline">
+          <div class="tl-line"></div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-year">[START_YEAR]</div>
+              <div class="tl-text">[Description of the channel's start. What they published, how it began, first steps.]</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-year">[YEAR] — [YEAR]</div>
+              <div class="tl-text">[Description of second milestone. First viral video, discovery of main theme, etc.]</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-year">[YEAR] — [YEAR]</div>
+              <div class="tl-text">[Description of third milestone. Subscriber milestones, content expansion, etc.]</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-year">[YEAR] — Today</div>
+              <div class="tl-text">[Description of current stage. Recent projects, current achievements, collaborations.]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="portrait">
+          <div class="portrait-hero">
+            <div class="portrait-avatar">
+              <img src="foto-creador.png" alt="[CREATOR_NAME]" onerror="this.style.display='none'"/>
+            </div>
+            <div class="portrait-name">[CREATOR_NAME]</div>
+            <div class="portrait-handle">@[HANDLE_CANAL] · [CITY], [COUNTRY] 🌍</div>
+          </div>
+          <div class="portrait-body">
+            <p class="portrait-bio">[SHORT BIO of the creator. 2-3 sentences about their profile, specialty, and community type.]</p>
+            <div class="tag-grid">
+              <span class="ptag ptag-red">🎮 [TAG 1]</span>
+              <span class="ptag ptag-yellow">🏆 [TAG 2]</span>
+              <span class="ptag ptag-blue">🌍 [COUNTRY]</span>
+              <span class="ptag ptag-dark">📅 [YEARS]+ years</span>
+              <span class="ptag ptag-red">👨‍👧‍👦 [TAG 3]</span>
+              <span class="ptag ptag-blue">📱 [SOCIAL]</span>
+            </div>
+            <div class="collab-section">
+              <span class="collab-label">Official collaborations</span>
+              <div class="collab-chips">
+                <span class="collab-chip">[Brand 1]</span>
+                <span class="collab-chip">[Brand 2]</span>
+                <span class="collab-chip">[Brand 3]</span>
+                <span class="collab-chip">[Brand 4]</span>
+                <span class="collab-chip">[Brand 5]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES SECTION — customize game catalog -->
+<section class="section" id="juegos">
+  <div class="container">
+    <div class="games-header reveal">
+      <div>
+        <span class="section-eyebrow">// Their catalog</span>
+        <h2 class="section-heading">[GAMES SECTION TITLE]</h2>
+      </div>
+      <div class="game-filters">
+        <button class="filter-btn active" onclick="filterGames('all',this)">All</button>
+        <button class="filter-btn" onclick="filterGames('lego',this)">🎮 [CATEGORY 1]</button>
+        <button class="filter-btn" onclick="filterGames('aaa',this)">🏆 [CATEGORY 2]</button>
+      </div>
+    </div>
+    <div class="games-grid reveal" id="gamesGrid">
+      <div class="game-chip lego-type" data-cat="lego"><span class="gi">🎮</span><span class="gn">[Game 1]</span></div>
+      <div class="game-chip lego-type" data-cat="lego"><span class="gi">🎮</span><span class="gn">[Game 2]</span></div>
+      <div class="game-chip lego-type" data-cat="lego"><span class="gi">🎮</span><span class="gn">[Game 3]</span></div>
+      <div class="game-chip lego-type" data-cat="lego"><span class="gi">🎮</span><span class="gn">[Game 4]</span></div>
+      <div class="game-chip lego-type" data-cat="lego"><span class="gi">🎮</span><span class="gn">[Game 5]</span></div>
+      <div class="game-chip lego-type" data-cat="lego"><span class="gi">🎮</span><span class="gn">[Game 6]</span></div>
+      <div class="game-chip" data-cat="aaa"><span class="gi">🏆</span><span class="gn">[Game 7]</span></div>
+      <div class="game-chip" data-cat="aaa"><span class="gi">🏆</span><span class="gn">[Game 8]</span></div>
+      <div class="game-chip" data-cat="aaa"><span class="gi">🏆</span><span class="gn">[Game 9]</span></div>
+      <div class="game-chip" data-cat="aaa"><span class="gi">🏆</span><span class="gn">[Game 10]</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNITION SECTION — customize 4 recognition cards -->
+<section class="section" id="reconocimiento">
+  <div class="container">
+    <div class="rec-header reveal">
+      <span class="section-eyebrow">// Why are they famous?</span>
+      <h2 class="section-heading">The reason for their success</h2>
+      <p class="section-lead">[Description of why the channel stands out. What makes it unique and what it has built over time.]</p>
+    </div>
+    <div class="awards-grid">
+      <div class="award-card reveal">
+        <div class="award-icon">🏆</div>
+        <div class="award-title">[ACHIEVEMENT 1<br/>of the channel]</div>
+        <p class="award-text">[Description of the first achievement or standout feature of the channel.]</p>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">⏳</div>
+        <div class="award-title">[ACHIEVEMENT 2<br/>of the channel]</div>
+        <p class="award-text">[Description of the second achievement. e.g., longevity, consistency, active years.]</p>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">❤️</div>
+        <div class="award-title">[ACHIEVEMENT 3<br/>of the channel]</div>
+        <p class="award-text">[Description of the third achievement. e.g., community type, channel values.]</p>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">📊</div>
+        <div class="award-title">[FIGURE]<br/>[ACHIEVEMENT 4]</div>
+        <p class="award-text">[Description of the fourth achievement. e.g., total views, published videos.]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS SECTION -->
+<section class="section" id="estadisticas">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-eyebrow">// By the numbers</span>
+      <h2 class="section-heading">The channel in figures</h2>
+    </div>
+    <div class="stats-feature-grid">
+      <!-- weeks counter: customize CHANNEL_START_DATE in JS -->
+      <div class="days-card reveal">
+        <div class="days-number" id="daysCounter">—</div>
+        <div class="days-label">weeks creating content</div>
+        <div class="days-sub">publishing videos since day one</div>
+        <div class="days-since">Since [DAY] of [MONTH] [YEAR]</div>
+      </div>
+
+      <!-- progress bars: customize labels, current/goal, data-pct -->
+      <div class="lego-progress-card reveal">
+        <h3>📊 Channel perspective</h3>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-name">[Metric 1, e.g. Subscribers]</span>
+            <span class="progress-nums">[CURRENT] / [GOAL]</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill fill-yellow" data-pct="75"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-name">[Metric 2, e.g. Views]</span>
+            <span class="progress-nums">[CURRENT] / [GOAL]</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill fill-red" data-pct="60"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-name">[Metric 3, e.g. Active years]</span>
+            <span class="progress-nums">[CURRENT] / [GOAL]</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill fill-blue" data-pct="80"></div></div>
+        </div>
+      </div>
+
+      <!-- bar chart — customize CHART_DATA in JS -->
+      <div class="chart-card reveal">
+        <h3>📈 Channel growth — subscribers per year</h3>
+        <div class="chart-bars" id="chartBars"></div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--lego-yellow)"></div>Annual growth</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE SECTION (Fan Zone) -->
+<section class="section" id="interactivo">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-eyebrow">// Fan zone</span>
+      <h2 class="section-heading">How well do you know the channel?</h2>
+    </div>
+
+    <div class="interactivo-tabs reveal">
+      <button class="itab active" onclick="switchTab('trivia',this)">🧩 Trivia</button>
+      <button class="itab" onclick="switchTab('ruleta',this)">🔀 Roulette</button>
+      <button class="itab" onclick="switchTab('timeline',this)">📖 Timeline</button>
+    </div>
+
+    <!-- TRIVIA -->
+    <div class="ipanel active" id="panel-trivia">
+      <div class="trivia-wrap">
+        <div class="trivia-progress-bar"><div class="trivia-progress-fill" id="triviaProgressFill" style="width:0%"></div></div>
+        <div id="triviaGame">
+          <div class="trivia-q-num" id="triviaQNum">Question 1 / 10</div>
+          <div class="trivia-question" id="triviaQuestion"></div>
+          <div class="trivia-options" id="triviaOptions"></div>
+          <div class="trivia-feedback" id="triviaFeedback"></div>
+          <div class="trivia-nav">
+            <button class="trivia-back"  id="triviaBack"  onclick="triviaBack()">← Back</button>
+            <button class="trivia-next"  id="triviaNext"  onclick="triviaNext()">Next →</button>
+          </div>
+        </div>
+        <div class="trivia-result" id="triviaResult">
+          <div class="trivia-result-score" id="triviaResultScore"></div>
+          <div class="trivia-result-label" id="triviaResultLabel"></div>
+          <div class="trivia-result-msg" id="triviaResultMsg"></div>
+          <button class="trivia-restart" onclick="triviaInit()">🔄 Play again</button>
+          <div class="trivia-best" id="triviaBest"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROULETTE -->
+    <div class="ipanel" id="panel-ruleta">
+      <div class="ruleta-wrap">
+        <div class="ruleta-canvas-wrap">
+          <div class="ruleta-pointer"></div>
+          <canvas id="ruletaCanvas" width="340" height="340"></canvas>
+        </div>
+        <div class="ruleta-controls">
+          <div class="ruleta-result-box">
+            <div class="ruleta-result-title">NEXT GAME</div>
+            <div class="ruleta-result-game" id="ruletaResult">Spin the wheel!</div>
+          </div>
+          <button class="ruleta-spin-btn" id="ruletaBtn" onclick="ruletaSpin()">🎰 SPIN!</button>
+          <div class="ruleta-history">
+            <h4>Spin history</h4>
+            <div class="ruleta-history-list" id="ruletaHistoryList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE (fully generic placeholders) -->
+    <div class="ipanel" id="panel-timeline">
+      <div class="tl-nav" id="tlNav"></div>
+      <div class="tl-cards-track" id="tlCards"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIALS — customize social URLs -->
+<section class="section" id="redes">
+  <div class="container">
+    <div class="redes-inner reveal">
+      <span class="section-eyebrow">// Follow them everywhere</span>
+      <h2 class="section-heading">[CREATOR_NAME] is everywhere</h2>
+      <div class="social-grid">
+        <a class="social-btn yt" href="https://www.youtube.com/@[HANDLE_CANAL]" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-2.75 12.08 12.08 0 00-7.64 0A4.83 4.83 0 014.41 6.69a50.56 50.56 0 000 10.62 4.83 4.83 0 003.77 2.75 12.08 12.08 0 007.64 0 4.83 4.83 0 003.77-2.75 50.56 50.56 0 000-10.62zM9.75 15V9l6 3z"/></svg>
+          YouTube
+        </a>
+        <a class="social-btn tw" href="https://www.twitch.tv/[HANDLE_TWITCH]" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+          Twitch
+        </a>
+        <a class="social-btn tt" href="https://www.tiktok.com/@[HANDLE_TIKTOK]" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/></svg>
+          TikTok
+        </a>
+        <a class="social-btn ig" href="https://www.instagram.com/[HANDLE_INSTAGRAM]" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="stripe"></div>
+<footer>
+  <div class="footer-logo">[CHANNEL_NAME]</div>
+  <p class="footer-note">
+    Unofficial fan page — All credit goes to
+    <a href="https://www.youtube.com/@[HANDLE_CANAL]" target="_blank" rel="noopener">[CREATOR_NAME]</a>.
+    <br/>© [YEAR] · Made with ❤️ by [YOUR_NAME]
+  </p>
+</footer>
+
+<script>
+  // Floating bricks
+  (function(){
+    const c=document.getElementById('fbContainer');
+    const cols=['#E3000B','#F5C400','#006CB7','#00A650','#FF6600'];
+    for(let i=0;i<22;i++){
+      const b=document.createElement('div');b.className='fb';
+      const w=14+Math.random()*40,h=9+Math.random()*18;
+      Object.assign(b.style,{
+        width:w+'px',height:h+'px',
+        background:cols[Math.floor(Math.random()*cols.length)],
+        left:Math.random()*100+'%',
+        animationDuration:(10+Math.random()*18)+'s',
+        animationDelay:-(Math.random()*16)+'s',
+      });
+      c.appendChild(b);
+    }
+  })();
+
+  /* SCROLL REVEAL */
+  const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')})},{threshold:.1});
+  document.querySelectorAll('.reveal,.reveal-left').forEach(r=>obs.observe(r));
+
+  /* GAME FILTER */
+  function filterGames(cat,btn){
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.game-chip').forEach(c=>{
+      c.style.display=(cat==='all'||c.dataset.cat===cat)?'':'none';
+    });
+  }
+
+  /* NAV hamburger */
+  function toggleMobileNav(){
+    document.getElementById('navMobile').classList.toggle('open');
+    document.getElementById('navHamburger').classList.toggle('open');
+  }
+  function closeMobileNav(){
+    document.getElementById('navMobile').classList.remove('open');
+    document.getElementById('navHamburger').classList.remove('open');
+  }
+
+  const nav=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>{
+    nav.style.background=scrollY>60?'rgba(0,0,0,.97)':'rgba(12,12,12,.93)';
+  },{passive:true});
+
+  /* WEEKS COUNTER — customize start date */
+  (function(){
+    const start = new Date('YYYY-MM-DD'); // ← SET CHANNEL CREATION DATE: e.g. '2018-03-15'
+    const today = new Date();
+    const days  = Math.floor((today - start) / (1000*60*60*24*7));
+    const el    = document.getElementById('daysCounter');
+    if(!el) return;
+    let count = 0;
+    const step = Math.ceil(days / 80);
+    const timer = setInterval(()=>{
+      count = Math.min(count + step, days);
+      el.textContent = count.toLocaleString('en-US');
+      if(count >= days) clearInterval(timer);
+    }, 18);
+  })();
+
+  /* PROGRESS BARS */
+  const progressObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.querySelectorAll('.progress-fill').forEach(bar=>{
+          bar.style.width = bar.dataset.pct + '%';
+        });
+        progressObs.unobserve(e.target);
+      }
+    });
+  },{threshold:.3});
+  document.querySelectorAll('.lego-progress-card').forEach(c=>progressObs.observe(c));
+
+  /* BAR CHART — customize yearly data */
+  (function(){
+    const data = [
+      {year:'YEAR1', subs:1000,  color:'bar-blue'},
+      {year:'YEAR2', subs:5000,  color:'bar-yellow'},
+      {year:'YEAR3', subs:15000, color:'bar-yellow'},
+      {year:'YEAR4', subs:40000, color:'bar-yellow'},
+      {year:'YEAR5', subs:80000, color:'bar-red'},
+    ];
+    const MAX_H = 160;
+    const max = Math.max(...data.map(d=>d.subs));
+    const container = document.getElementById('chartBars');
+    if(!container) return;
+
+    data.forEach(d=>{
+      const px = Math.round((d.subs/max)*MAX_H);
+      const label = d.subs >= 1000000 ? (d.subs/1000000).toFixed(1)+'M' : d.subs >= 1000 ? Math.round(d.subs/1000)+'K' : d.subs;
+      container.innerHTML += `
+        <div class="chart-col">
+          <div class="chart-val">${label}</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar ${d.color}" data-h="${px}" style="height:0;width:100%"></div>
+          </div>
+          <div class="chart-year">${d.year}</div>
+        </div>`;
+    });
+
+    const chartObs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.querySelectorAll('.chart-bar').forEach((b,i)=>{
+            setTimeout(()=>{
+              b.style.transition = 'height 1s cubic-bezier(.22,1,.36,1)';
+              b.style.height = b.dataset.h + 'px';
+            }, i*70);
+          });
+          chartObs.unobserve(e.target);
+        }
+      });
+    },{threshold:.2});
+    chartObs.observe(container);
+  })();
+
+  /* TABS */
+  function switchTab(id, btn){
+    document.querySelectorAll('.itab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.ipanel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+id).classList.add('active');
+    if(id==='ruleta') ruletaDraw(ruletaAngle);
+  }
+
+  /* TRIVIA — generic questions (replace placeholders) */
+  const triviaData = [
+    {q:'In what year did [CREATOR_NAME] create the channel?', opts:['[YEAR A]','[YEAR B]','[YEAR C]','[YEAR D]'],a:0},
+    {q:'Which city is [CREATOR_NAME] from?', opts:['[CITY A]','[CITY B]','[CITY C]','[CITY D]'],a:0},
+    {q:'What is the channel’s main game genre?', opts:['[OPTION A]','[OPTION B]','[OPTION C]','[OPTION D]'],a:0},
+    {q:'Approximately how many subscribers does the channel have?', opts:['[NUM A]','[NUM B]','[NUM C]','[NUM D]'],a:0},
+    {q:'Which platform does the creator primarily use?', opts:['[PLATFORM A]','[PLATFORM B]','[PLATFORM C]','[PLATFORM D]'],a:0},
+    {q:'What type of content is the channel best known for?', opts:['[TYPE A]','[TYPE B]','[TYPE C]','[TYPE D]'],a:0},
+    {q:'How many videos has the channel published?', opts:['[NUM A]','[NUM B]','[NUM C]','[NUM D]'],a:0},
+    {q:'Which brand has the channel officially collaborated with?', opts:['[BRAND A]','[BRAND B]','[BRAND C]','[BRAND D]'],a:0},
+    {q:'What year did the channel reach [MILESTONE] subscribers?', opts:['[YEAR A]','[YEAR B]','[YEAR C]','[YEAR D]'],a:0},
+    {q:'What is the channel’s signature series?', opts:['[SERIES A]','[SERIES B]','[SERIES C]','[SERIES D]'],a:0},
+  ];
+
+  let triviaQ = 0;
+  let triviaAnswers = [];
+
+  function triviaInit(){
+    triviaQ = 0;
+    triviaAnswers = new Array(triviaData.length).fill(null);
+    clearTimeout(window._triviaTimer);
+    document.getElementById('triviaGame').style.display = '';
+    document.getElementById('triviaResult').style.display = 'none';
+    triviaRender();
+  }
+  function triviaScore(){ return triviaAnswers.filter((a,i)=> a !== null && a === triviaData[i].a).length; }
+  function triviaRender(){
+    const d = triviaData[triviaQ];
+    const prevAnswer = triviaAnswers[triviaQ];
+    const isAnswered = prevAnswer !== null;
+    const isLast = triviaQ === triviaData.length-1;
+    document.getElementById('triviaQNum').textContent = `Question ${triviaQ+1} / ${triviaData.length}`;
+    document.getElementById('triviaQuestion').textContent = d.q;
+    document.getElementById('triviaProgressFill').style.width = ((triviaQ / triviaData.length) * 100) + '%';
+    const backBtn = document.getElementById('triviaBack'), nextBtn = document.getElementById('triviaNext');
+    backBtn.style.display = 'inline-flex'; nextBtn.style.display = 'inline-flex';
+    backBtn.disabled = triviaQ === 0; backBtn.style.opacity = triviaQ === 0 ? '0.3' : '1';
+    nextBtn.textContent = isLast ? 'View result →' : 'Next →';
+    const fb = document.getElementById('triviaFeedback');
+    if(isAnswered){
+      if(prevAnswer === d.a){ fb.textContent = '✅ Correct!'; fb.className = 'trivia-feedback ok'; }
+      else { fb.textContent = `❌ It was: "${d.opts[d.a]}"`; fb.className = 'trivia-feedback fail'; }
+    } else { fb.textContent = ''; fb.className = 'trivia-feedback'; }
+    const opts = document.getElementById('triviaOptions');
+    opts.innerHTML = '';
+    d.opts.forEach((o,i)=>{
+      const btn = document.createElement('button');
+      btn.className = 'trivia-opt';
+      btn.textContent = o;
+      if(isAnswered){
+        btn.disabled = true;
+        if(i === d.a) btn.classList.add('correct');
+        else if(i === prevAnswer) btn.classList.add('wrong');
+      }
+      btn.onclick = () => triviaAnswer(i);
+      opts.appendChild(btn);
+    });
+  }
+  function triviaAnswer(chosen){ triviaAnswers[triviaQ] = chosen; triviaRender(); }
+  function triviaNext(){
+    if(triviaQ >= triviaData.length-1) triviaShowResult();
+    else { triviaQ++; triviaRender(); }
+  }
+  function triviaBack(){ if(triviaQ > 0){ triviaQ--; triviaRender(); } }
+  function triviaShowResult(){
+    document.getElementById('triviaGame').style.display = 'none';
+    const result = document.getElementById('triviaResult');
+    result.style.display = 'block';
+    const score = triviaScore();
+    document.getElementById('triviaResultScore').textContent = `${score} / ${triviaData.length}`;
+    const pct = score / triviaData.length;
+    let label = '', msg = '';
+    if(pct===1){ label='Ultimate fan! 🏆'; msg='Perfect! You never miss a video.'; }
+    else if(pct>=0.7){ label='Great connoisseur! 🎮'; msg='You know a lot. Just a couple details slip away.'; }
+    else if(pct>=0.5){ label='Regular follower 👍'; msg='You know the basics, but there’s more to discover.'; }
+    else { label='New here 👋'; msg='Welcome to the channel! Now you have an excuse to watch more videos.'; }
+    document.getElementById('triviaResultLabel').textContent = label;
+    document.getElementById('triviaResultMsg').textContent = msg;
+    const best = parseInt(localStorage.getItem('channel_trivia_best')||'0');
+    if(score > best) localStorage.setItem('channel_trivia_best', score);
+    document.getElementById('triviaBest').textContent = `🏅 Your record: ${Math.max(score,best)} / ${triviaData.length}`;
+  }
+  triviaInit();
+
+  /* ROULETTE — fully generic game list */
+  const ruletaGames = ['Game 1','Game 2','Game 3','Game 4','Game 5','Game 6','Game 7','Game 8','Game 9','Game 10','Game 11','Game 12','Game 13','Game 14','Game 15'];
+  const ruletaColors = ['#E3000B','#F5C400','#006CB7','#c00009','#d4a000','#004a80','#ff6600','#00a650','#9900cc','#e3000b','#f5c400','#006cb7','#c00009','#d4a000','#004a80'];
+  let ruletaAngle = 0, ruletaSpinning = false, ruletaHistory = [], ruletaSpinCount = 0;
+  function ruletaDraw(angle){
+    const canvas = document.getElementById('ruletaCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const cx = canvas.width/2, cy = canvas.height/2, r = cx-4;
+    const n = ruletaGames.length;
+    const slice = (2*Math.PI)/n;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ruletaGames.forEach((g,i)=>{
+      const start = angle + i*slice - Math.PI/2;
+      const end   = start + slice;
+      ctx.beginPath();
+      ctx.moveTo(cx,cy);
+      ctx.arc(cx,cy,r,start,end);
+      ctx.closePath();
+      ctx.fillStyle = ruletaColors[i%ruletaColors.length];
+      ctx.fill();
+      ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();
+      ctx.save();
+      ctx.translate(cx,cy);
+      ctx.rotate(start+slice/2);
+      ctx.textAlign='right';
+      ctx.fillStyle='#fff';
+      ctx.font='bold 11px Exo 2, sans-serif';
+      ctx.shadowColor='rgba(0,0,0,.7)';ctx.shadowBlur=3;
+      ctx.fillText(g, r-10, 4);
+      ctx.restore();
+    });
+    ctx.beginPath();ctx.arc(cx,cy,18,0,Math.PI*2);
+    ctx.fillStyle='#000';ctx.fill();
+    ctx.strokeStyle=ruletaColors[0];ctx.lineWidth=3;ctx.stroke();
+  }
+  function ruletaSpin(){
+    if(ruletaSpinning) return;
+    ruletaSpinning = true;
+    document.getElementById('ruletaBtn').disabled = true;
+    const extraSpins = (5+Math.random()*5)*2*Math.PI;
+    const start = performance.now();
+    const startAngle = ruletaAngle;
+    function easeOut(t){ return 1-Math.pow(1-t,4); }
+    function frame(now){
+      const t = Math.min((now-start)/3500,1);
+      ruletaAngle = startAngle + extraSpins*easeOut(t);
+      ruletaDraw(ruletaAngle);
+      if(t<1){ requestAnimationFrame(frame); return; }
+      const n = ruletaGames.length;
+      const slice = (2*Math.PI)/n;
+      const norm = ((-ruletaAngle % (2*Math.PI)) + (2*Math.PI)) % (2*Math.PI);
+      const idx = Math.floor(norm / slice) % n;
+      const winner = ruletaGames[idx];
+      document.getElementById('ruletaResult').textContent = winner;
+      ruletaSpinCount++;
+      ruletaHistory.push({game: winner, num: ruletaSpinCount});
+      const list = document.getElementById('ruletaHistoryList');
+      list.innerHTML = ruletaHistory.slice(-8).map(h=>`<div class="ruleta-hist-item"><span>${h.game}</span><span class="ruleta-hist-num">#${h.num}</span></div>`).join('');
+      ruletaSpinning = false;
+      document.getElementById('ruletaBtn').disabled = false;
+    }
+    requestAnimationFrame(frame);
+  }
+  ruletaDraw(ruletaAngle);
+
+  /* INTERACTIVE TIMELINE — fully generic placeholder data */
+  const tlData = [
+    {year:'[YEAR]', title:'[TITLE]', body:'[Full description of this milestone. What happened, why it was important for the channel.]', stats:['[Stat 1]','[Stat 2]','[Stat 3]']},
+    {year:'[YEAR]', title:'[TITLE]', body:'[Full description of this milestone. What happened, why it was important for the channel.]', stats:['[Stat 1]','[Stat 2]','[Stat 3]']},
+    {year:'[YEAR]', title:'[TITLE]', body:'[Full description of this milestone. What happened, why it was important for the channel.]', stats:['[Stat 1]','[Stat 2]','[Stat 3]']},
+    {year:'[YEAR]', title:'[TITLE]', body:'[Full description of this milestone. What happened, why it was important for the channel.]', stats:['[Stat 1]','[Stat 2]','[Stat 3]']},
+    {year:'[YEAR]', title:'[TITLE]', body:'[Full description of this milestone. What happened, why it was important for the channel.]', stats:['[Stat 1]','[Stat 2]','[Stat 3]']},
+    {year:'[YEAR]', title:'[TITLE]', body:'[Full description of this milestone. What happened, why it was important for the channel.]', stats:['[Stat 1]','[Stat 2]','[Stat 3]']},
+    {year:'[YEAR]', title:'[TITLE]', body:'[Full description of this milestone. What happened, why it was important for the channel.]', stats:['[Stat 1]','[Stat 2]','[Stat 3]']},
+  ];
+  (function(){
+    const nav = document.getElementById('tlNav');
+    const cards = document.getElementById('tlCards');
+    if(!nav || !cards) return;
+    tlData.forEach((d,i)=>{
+      const btn = document.createElement('button');
+      btn.className = 'tl-nav-btn' + (i===0?' active':'');
+      btn.textContent = d.year;
+      btn.onclick = ()=>tlShow(i);
+      nav.appendChild(btn);
+      const card = document.createElement('div');
+      card.className = 'tl-card' + (i===0?' active':'');
+      card.innerHTML = `<div class="tl-card-year">${d.year}</div><div class="tl-card-content"><div class="tl-card-title">${d.title}</div><div class="tl-card-body">${d.body}</div>${d.stats.map(s=>`<span class="tl-card-stat">${s}</span>`).join('')}</div>`;
+      cards.appendChild(card);
+    });
+  })();
+  function tlShow(i){
+    document.querySelectorAll('.tl-nav-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
+    document.querySelectorAll('.tl-card').forEach((c,j)=>c.classList.toggle('active',j===i));
+  }
+</script>
+</body>
+</html>
