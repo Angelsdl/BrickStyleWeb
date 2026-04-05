@@ -1,4 +1,4 @@
-# 🎮 Gaming Channel Fan Page Template
+# 🎮 Gaming Channel Page Template
 
 ## What is this?
 
